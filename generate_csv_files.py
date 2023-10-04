@@ -5,11 +5,10 @@ CSV_LOCATION = 'csv_files'
 
 
 def create_csv_files_from_loc_file_name(loc_file_name):
-    # Name of each file - A20220201 (year month day)
+    # E.g. name of each file - A20220201 (year month day)
     loc_file_name = loc_file_name.split('/')
     loc_file_name = loc_file_name[len(loc_file_name)-1]
 
-    print(loc_file_name)
     year = loc_file_name[1:5]
     month = loc_file_name[5:7]
     day = loc_file_name[7:9]

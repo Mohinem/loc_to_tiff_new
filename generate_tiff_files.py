@@ -37,8 +37,8 @@ def generate_tiff_files(csv_folder_name, output_folder_name, resolution):
             lon = round(float(lon), 1)
             # Step 3. Define grid coordinates
 
-            grid_lon = math.floor((180+lon)/resolution)
-            grid_lat = math.floor((lat-90)/(-resolution))
+            grid_lon = (math.floor((180+lon)/resolution))%num_longitudes
+            grid_lat = (math.floor((lat-90)/(-resolution)))%num_latitudes
 
             # Step 4 . Inrement count by 1
             try:
