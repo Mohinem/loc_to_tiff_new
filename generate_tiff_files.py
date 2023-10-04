@@ -6,7 +6,6 @@ import argparse
 
 def generate_tiff_files(csv_folder_name, output_folder_name, resolution):
 
-
     csv_files = [file for file in os.listdir(csv_folder_name) if file.endswith('.csv')]
 
     for csv_file in csv_files:

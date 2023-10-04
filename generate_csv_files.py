@@ -58,8 +58,6 @@ def write_to_loc_file(line):
 
     open_and_write_to_file(file_name_path, new_string_to_write)
 
-
-
 def generate_csv_file(loc_file_location):
     # Open the file
     loc_file = open(loc_file_location, 'r')
