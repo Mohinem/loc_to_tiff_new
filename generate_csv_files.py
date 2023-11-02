@@ -4,7 +4,7 @@ import argparse
 CSV_LOCATION = 'csv_files'
 
 
-def create_csv_files_from_loc_file_name(loc_file_name):
+def create_csv_files_from_loc_file_name(loc_file_name, csv_folder_name):
     # E.g. name of each file - A20220201 (year month day)
     loc_file_name = loc_file_name.split('/')
     loc_file_name = loc_file_name[len(loc_file_name)-1]
@@ -16,7 +16,7 @@ def create_csv_files_from_loc_file_name(loc_file_name):
     for i in range(0,24):
         csv_file_name = str(year) + '-' + str(month) + '-' + str(day) + 'T' + str(i).zfill(2) + ':00:00.000Z' + '.csv'
         print(csv_file_name)
-        f = open(CSV_LOCATION + '/' + csv_file_name, 'w')
+        f = open(csv_folder_name + '/' + csv_file_name, 'w')
         f.close()
 
 def extract_date_and_time(line):
@@ -41,7 +41,7 @@ def open_and_write_to_file(file_name_path, new_string_to_write):
     file.write(new_string_to_write)
     file.close()
 
-def write_to_loc_file(line):
+def write_to_loc_file(line, csv_folder_name):
     date_and_time = extract_date_and_time(line)
 
     file_name_to_open = str(date_and_time) + '.csv'
@@ -53,31 +53,33 @@ def write_to_loc_file(line):
 
     new_string_to_write = str(date_and_time) + ',' + str(lat) + ',' + str(lon) + '\n'
 
-    file_name_path = CSV_LOCATION + '/' + file_name_to_open
+    file_name_path = csv_folder_name + '/' + file_name_to_open
 
     open_and_write_to_file(file_name_path, new_string_to_write)
 
-def generate_csv_file(loc_file_location):
+def generate_csv_file(loc_file_location, csv_folder_name= CSV_LOCATION):
     # Open the file
     loc_file = open(loc_file_location, 'r')
+    print("CSV files being generated at = " + str(csv_folder_name))
 
     # Create csv file location
-    if os.path.exists(CSV_LOCATION) is False:
-        os.mkdir(CSV_LOCATION)
+    if os.path.exists(csv_folder_name) is False:
+        os.mkdir(csv_folder_name)
         
     # Using loc_file name, create 24 csv files of the form 2022-02-01T00:00:00.000Z
-    create_csv_files_from_loc_file_name(loc_file.name)
+    create_csv_files_from_loc_file_name(loc_file.name, csv_folder_name)
 
     for each_line in loc_file:
-        write_to_loc_file(each_line)
+        write_to_loc_file(each_line, csv_folder_name)
 
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process LOC file and convert it to a TIFF file.")
     parser.add_argument("input_file_name", help="Input LOC file name")
+    parser.add_argument("csv_folder_name", help="CSV Folder Name")
 
     args = parser.parse_args()
 
-    generate_csv_file(args.input_file_name)
+    generate_csv_file(args.input_file_name, args.csv_folder_name)
 

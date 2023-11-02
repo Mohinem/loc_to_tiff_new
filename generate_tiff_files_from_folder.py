@@ -23,6 +23,6 @@ if __name__ == "__main__":
     input_files = [file for file in os.listdir(args.input_folder_name) if file.endswith('.loc')]
 
     for each_file in input_files:
-        g_csv.generate_csv_file(args.input_folder_name + '/' + each_file)
+        g_csv.generate_csv_file(args.input_folder_name + '/' + each_file, args.csv_folder_name)
 
     g_tiff.generate_tiff_files(args.csv_folder_name, args.output_folder_name, args.resolution)

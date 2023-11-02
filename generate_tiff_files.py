@@ -52,6 +52,7 @@ def generate_tiff_files(csv_folder_name, output_folder_name, resolution):
         
         # Step 5 - Finally generate the raster file
         output_file_string = output_folder_name + date + '.tiff'
+        print("Generating tiff file at - " + str(output_file_string))
         driver = gdal.GetDriverByName('GTiff')
         output_raster = driver.Create(output_file_string, num_longitudes, num_latitudes, 1, gdal.GDT_Int32)
 
