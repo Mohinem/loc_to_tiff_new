@@ -48,6 +48,11 @@ def write_to_loc_file(line, csv_folder_name):
     # Line looks like - 2022/02/01,00:00:02.246530, -6.0943,  97.9802, 14.4, 11
 
     line_elements = line.split(',')
+
+    if len(line_elements) < 6:
+        # If the line is not in good format, then no need to write it. Just return
+        return
+
     lat = line_elements[2]
     lon = line_elements[3]
 
